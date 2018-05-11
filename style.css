@@ -1,0 +1,124 @@
+
+.container {
+  height: 100vh;
+  display: flex;
+}
+
+#panel-1 {
+  min-height: 100%;
+  width: 20%;
+  transition: width 1s;
+}
+
+#panel-2 {
+  display: flex;
+  min-height: 100%;
+  width: 60%;
+  transition: width 1s;
+}
+
+#panel-3 {
+  min-height: 100%;
+  width: 20%;
+}
+
+#field-main {
+  width: 70%;
+}
+
+#field-aside {
+  max-width: 30%;
+}
+
+#panel-2 > div {
+  border: 1px solid #000000;
+  margin: 10px;
+}
+
+.input-title {
+  font-weight: 600;
+}
+
+input {
+  display: block;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+#field-aside > span {
+  display: block;
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+#arrow-left, #arrow-right {
+  display: block;
+  height: 120px;
+  width: 120px;
+  position: relative;
+  margin-top: 30%;
+  transition: margin-right 1s;
+  transition: margin-top 1s;
+}
+
+#arrow-left {
+  margin-right:  -35px;
+  background: url("icons/arrow-left.png") no-repeat;
+}
+
+#arrow-right {
+  margin-left: -35px;
+  background: url("icons/arrow-right.png") no-repeat;
+}
+
+.animation-hide {
+  animation-name: hide-panel;
+  animation-duration: 0.5s;
+}
+
+.animation-show {
+  animation-name: show-panel;
+  animation-duration: 0.5s;
+}
+
+@keyframes hide-panel {
+  from: {width: 20%;}
+  to: {width: 0%;}
+}
+
+@-webkit-keyframes hide-panel {
+  from: {width: 20%;}
+  to: {width: 0%;}
+}
+
+
+
+@keyframes show-panel {
+  from: {width: 0%;}
+  to: {width: 20%;}
+}
+
+@-webkit-keyframes show-panel {
+  from: {width: 20%;}
+  to: {width: 0%;}
+}
+
+.arrow-left__hidden {
+  margin-right: -80px !important;
+  margin-top: 23% !important;
+  background: url("icons/arrow-right.png") no-repeat !important;
+}
+
+.arrow-right__hidden {
+  margin-right: -80px !important;
+  margin-top: 23% !important;
+  background: url("icons/arrow-left.png") no-repeat !important;
+}
+
+.side-panel__hidden {
+  width: 0% !important;
+}
+
+.main-pannel__to-side {
+  width: 86% !important;
+}
