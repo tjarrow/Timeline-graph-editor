@@ -1,41 +1,59 @@
 
-var jsonData;// = localStorage.getItem("data");
+var jsonData;
 var data = [];
 var returnData;
-//data = JSON.parse(jsonData);
-// var newData = JSON.parse(localStorage.newData);
- // var svg = localStorage.getItem("svg");
 
-// var leftPanel = document.getElementById('panel-1'),
-//     leftArrow = document.getElementById('arrow-left'),
-//     rightPanel = document.getElementById('panel-3'),
-//     mainPanel = document.getElementById('panel-2'),
-//     rightArrow = document.getElementById('arrow-right'),
-var field = document.getElementById("field-main");
 
 $("#arrow-left").on("click",  function() {
-  console.log("A");
+
   $("#panel-1").toggleClass('side-panel__hidden');
   $("#arrow-left").toggleClass('arrow-left__hidden');
-  //leftArrow.classList.toggle("arrow-left__hidden");
   $("#panel-2").toggleClass("main-pannel__to-side");
+  $('#panel-2').toggleClass("shadow-right");
   $('#field-main').toggleClass("field-main__to-side");
-  $(".line").toggleClass("graph-wide");
-  // if ($('#panel-2').hasClass("main-pannel__to-side")) {
-  //   $('#panel-2').toggleClass("main-pannel__wide");
-  //   $('#panel-2').toggleClass("main-pannel__to-side");
-  //   $("#field-main").toggleClass("field-main__wide");
-  //   $("#field-main").removeClass("field-main__to-side");
-  // }
+  $("path").toggleClass("graph-wide");
+  $("svg").attr("width","900");
+  if ($('#panel-3').hasClass("side-panel__hidden")) {
+
+    $('#panel-2').toggleClass("main-pannel__wide");
+    $('#panel-2').removeClass("main-pannel__to-side");
+    $("#field-main").toggleClass("field-main__wide");
+    $("#field-main").removeClass("field-main__to-side");
+
+  }
+
+  if ("#field-main:has(svg)") {
+    Clear();
+    drawWide();
+    $("#field-main").toggleClass("wide-graph");
+  }
+
+ //  if ("#field-main:has(.wide-graph)") {
+ //   Clear();
+ //   Draw();
+ // }
+
 })
 
 $("#arrow-right").on("click",  function() {
+
   $("#panel-3").toggleClass('side-panel__hidden');
   $("#arrow-right").toggleClass('arrow-right__hidden');
   $("#panel-2").toggleClass("main-pannel__to-side");
-  // document.querySelector(".line").classList.toggle("graph-wide");
+  $('#panel-2').toggleClass("shadow-left");
   $('#field-main').toggleClass("field-main__to-side");
-  $(".line").toggleClass(".graph-wide");
+  $("path").toggleClass("graph-wide");
+  $("svg").attr("width","900");
+
+  if ($('#panel-1').hasClass("side-panel__hidden")) {
+
+    $('#panel-2').toggleClass("main-pannel__wide");
+    $('#panel-2').removeClass("main-pannel__to-side");
+    $("#field-main").toggleClass("field-main__wide");
+    $("#field-main").removeClass("field-main__to-side");
+
+  }
+
 })
 
 
@@ -54,20 +72,20 @@ $('input').keyup(function(e){
   dateString += time.getMinutes() +':';
   dateString += time.getSeconds() +':';
   dateString += time.getMilliseconds();
+
   data.push({"date": dateString, "value" : valueNumber });
-
-
-
 
   removeButton.className = "remove-button";
   removeButton.setAttribute("data-index",data.length - 1);
   removeButton.innerHTML = "Remove";
+
   newValue.className = "new-value";
-  newValue.innerHTML = input.value + dateString;
+  newValue.innerHTML = dateString + "<b>" + input.value + "</b>";
   newValue.appendChild(removeButton);
   values.appendChild(newValue);
 
   getData();
+
   }
 })
 
@@ -133,13 +151,13 @@ function getData() {
 
     Draw();
 
-
 }
 
+var field = document.getElementById("field-main");
 
 var svg = d3.select(field)
   .append("svg")
-  .attr("width", width + margin.left + margin.right)
+  .attr("width", "700")
   .attr("height", height + margin.top + margin.bottom)
   .append("g")
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -148,34 +166,66 @@ function Draw() {
 
   var	valueline = d3.svg.line()
 
-  	.x(function(data) { return x(data.date); })
-  	.y(function(data) { return y(data.value); });
+	.x(function(data) { return x(data.date); })
+	.y(function(data) { return y(data.value); });
 
-    svg.append("path")
-      .attr("class", "line")
-      .attr("d", valueline(newData));
+  svg.append("path")
+    .attr("class", "line")
+    .attr("d", valueline(newData));
 
-   svg.selectAll("dot")
-       .data(data)
-       .enter()
-       .append("circle")
-       //.attr("data-index",data.length)
-       .attr("class","dots")
-       .attr("r", 0)
-       .attr("cx", function(data) { return x(data.date); })
-       .attr("cy", function(data) { return y(data.value); });
+  svg.selectAll("dot")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("class","dots")
+    .attr("r", 0)
+    .attr("cx", function(data) { return x(data.date); })
+    .attr("cy", function(data) { return y(data.value); });
 
-    svg.selectAll("dot")
-       .data(data)
-       .enter()
-       .append("text")
-       .attr("font-size","15px")
-       .attr("class","dots-value")
-       //.attr("data-index",data.length)
-       .attr("dx", function(data) { return x(data.date); })
-       .attr("dy", function(data) { return y(data.value); })
-       .text(function(data) { return data.value });
+  svg.selectAll("dot")
+    .data(data)
+    .enter()
+    .append("text")
+    .attr("font-size","15px")
+    .attr("class","dots-value")
+    .attr("dx", function(data) { return x(data.date); })
+    .attr("dy", function(data) { return y(data.value); })
+    .text(function(data) { return data.value });
     //  localStorage.setItem("svg", JSON.stringify(svg));
+}
+
+function drawWide() {
+  var	valueline = d3.svg.line()
+
+  .x(function(data) { return x(data.date)*1.5; })
+  .y(function(data) { return y(data.value); });
+
+  svg.append("path")
+    .attr("class", "line")
+    .attr("d", valueline(newData));
+
+  svg.selectAll("dot")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("class","dots")
+    .attr("r", 0)
+    .attr("cx", function(data) { return x(data.date)*1.5; })
+    .attr("cy", function(data) { return y(data.value); });
+
+  svg.selectAll("dot")
+    .data(data)
+    .enter()
+    .append("text")
+    .attr("font-size","15px")
+    .attr("class","dots-value")
+    .attr("dx", function(data) { return x(data.date)*1.5; })
+    .attr("dy", function(data) { return y(data.value); })
+    .text(function(data) { return data.value });
+}
+
+function drawFull() {
+
 }
 
 function Clear() {

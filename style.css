@@ -1,3 +1,8 @@
+body {
+   font: 12px Arial;
+   overflow: hidden;
+   margin: 0;
+}
 
 .container {
   height: 100vh;
@@ -13,7 +18,7 @@
 
 #panel-2 {
   display: flex;
-  width: 950px;
+  width: 966px;
   transition: width 1s;
   box-shadow: 25px 0 25px -25px #000 inset, -25px 0 25px -25px #000 inset;
 }
@@ -27,6 +32,7 @@
 
 #field-main {
   width: 700px;
+  transition: width 1s;
 }
 
 #field-aside {
@@ -52,45 +58,31 @@ input {
   display: block;
   margin-left: 10px;
   margin-top: 5px;
+  font-size: 15px;
 }
 
 #arrow-left  {
   content: '';
   position: absolute;
-  left: 205px;
-  /* bottom: -20px; */
+  left: 121px;
   top: 50%;
   border: 40px solid transparent;
   border-right: 40px solid #577d9f;
-  transition: left 1s;
+  transition: left 1.2s;
 }
 
 #arrow-right {
   content: '';
   position: absolute;
-  right: 147px;
-  /* bottom: -20px; */
+  right: 122px;
   top: 50%;
   border: 40px solid transparent;
   border-left: 40px solid #577d9f;
   transition: right 1s;
 }
 
-/* #arrow-left, #arrow-right {
-  display: block;
-  height: 120px;
-  width: 120px;
-  position: relative;
-  margin-top: 30%;
-  transition: margin-right 1s;
-  transition: margin-top 1s;
-}
 
-#arrow-left {
-  margin-right:  -35px;
-  border: 20px solid transparent;	border-right: 20px solid #577d9f;
-} */
-
+/*
 .animation-hide {
   animation-name: hide-panel;
   animation-duration: 0.5s;
@@ -99,29 +91,7 @@ input {
 .animation-show {
   animation-name: show-panel;
   animation-duration: 0.5s;
-}
-
-@keyframes hide-panel {
-  from: {width: 20%;}
-  to: {width: 0%;}
-}
-
-@-webkit-keyframes hide-panel {
-  from: {width: 20%;}
-  to: {width: 0%;}
-}
-
-
-
-@keyframes show-panel {
-  from: {width: 0%;}
-  to: {width: 20%;}
-}
-
-@-webkit-keyframes show-panel {
-  from: {width: 20%;}
-  to: {width: 0%;}
-}
+} */
 
 .arrow-left__hidden {
   left: 0px !important;
@@ -141,20 +111,27 @@ input {
 }
 
 .main-pannel__to-side {
-  width: 1080px !important;
+  width: 1166px !important;
+}
+
+.shadow-left {
+  box-shadow: 25px 0 25px -25px #000 inset !important;
+}
+
+.shadow-right {
   box-shadow: -25px 0 25px -25px #000 inset !important;
 }
 
 .field-main__to-side {
-  width: 835px !important;
+  width: 900px !important;
 }
 
 .main-pannel__wide {
-  width: 100%;
+  width: 100% !important;
 }
 
 .field-main__wide {
-  width: 1080px;
+  width: 100% !important;
 }
 
 .new-value {
@@ -164,6 +141,7 @@ input {
   margin: 10px;
   height: 25px;
   border: 1px solid #7a7a7a;
+  font-size: 15px;
 }
 
 .remove-button {
@@ -174,9 +152,13 @@ input {
   margin: 2px;
   width: 70px;
   text-align: center;
+  cursor: pointer;
 }
 
-body { font: 12px Arial;}
+b {
+  margin: 5px;
+}
+
 
 path {
 	stroke: steelblue;
@@ -193,7 +175,7 @@ path {
 }
 
 .graph-wide {
-  transform: scale(1.2,1);
+  transform: scale(1.6,1);
 }
 
 .change-input {
@@ -218,10 +200,12 @@ path {
   margin-bottom: 2px;
   border: 5px solid transparent;
   border-bottom: 5px solid black;
+  cursor: pointer;
 }
 
 .dec {
   content: ' ';
   border: 5px solid transparent;
   border-top: 5px solid black;
+  cursor: pointer;
 }
