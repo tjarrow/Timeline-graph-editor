@@ -77,6 +77,8 @@ $('.values-field').on('click',".remove-button", function(){
    newData.splice(arrIndex,1);
    length--;
    $(this).parent().remove();
+   $(".dots:eq(arrIndex)").remove();
+   $(".dots-value:eq(arrIndex)").remove();
    Clear();
    Draw();
 });
@@ -157,6 +159,8 @@ function Draw() {
        .data(data)
        .enter()
        .append("circle")
+       //.attr("data-index",data.length)
+       .attr("class","dots")
        .attr("r", 0)
        .attr("cx", function(data) { return x(data.date); })
        .attr("cy", function(data) { return y(data.value); });
@@ -166,38 +170,12 @@ function Draw() {
        .enter()
        .append("text")
        .attr("font-size","15px")
+       .attr("class","dots-value")
+       //.attr("data-index",data.length)
        .attr("dx", function(data) { return x(data.date); })
        .attr("dy", function(data) { return y(data.value); })
        .text(function(data) { return data.value });
-
-    //var dots = svg.selectAll(".dots");
-
-    // //dots
-    // .append("text")
-    //   .attr("dx", 12)
-    //   .attr("dy", ".35em")
-    //   .text(function(data) { return data.value });
-
-    // var node = svg.select("path");
-    //
-    // node.append("circle")
-    //   .attr("class", "dot")
-    //   .attr("cx", function(data) { return x(data.date); })
-    //   .attr("cy", function(data) { return y(data.value); })
-    //
-    //   node.append("text")
-    // .attr("x", function(data) { return x(data.date); })
-    // .attr("y", function(data) { return y(data.value); })
-    // .text("fooLabelsOfScatterPoints");
-
-
-
     //  localStorage.setItem("svg", JSON.stringify(svg));
-
-
-
-
-
 }
 
 function Clear() {
