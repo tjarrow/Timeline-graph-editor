@@ -6,24 +6,27 @@
 
 #panel-1 {
   min-height: 100%;
-  width: 15%;
+  width: 200px;
+  background-color:  #e2e2e2;
   transition: width 1s;
 }
 
 #panel-2 {
   display: flex;
-  min-height: 100%;
-  width: 70%;
+  width: 950px;
   transition: width 1s;
+  box-shadow: 25px 0 25px -25px #000 inset, -25px 0 25px -25px #000 inset;
 }
 
 #panel-3 {
   min-height: 100%;
-  width: 15%;
+  width: 200px;
+  background-color:  #e2e2e2;
+  transition: width 1s;
 }
 
 #field-main {
-  width: 70%;
+  width: 700px;
 }
 
 #field-aside {
@@ -65,7 +68,7 @@ input {
 #arrow-right {
   content: '';
   position: absolute;
-  right: 219px;
+  right: 147px;
   /* bottom: -20px; */
   top: 50%;
   border: 40px solid transparent;
@@ -138,7 +141,20 @@ input {
 }
 
 .main-pannel__to-side {
-  width: 85% !important;
+  width: 1080px !important;
+  box-shadow: -25px 0 25px -25px #000 inset !important;
+}
+
+.field-main__to-side {
+  width: 835px !important;
+}
+
+.main-pannel__wide {
+  width: 100%;
+}
+
+.field-main__wide {
+  width: 1080px;
 }
 
 .new-value {
@@ -158,4 +174,54 @@ input {
   margin: 2px;
   width: 70px;
   text-align: center;
+}
+
+body { font: 12px Arial;}
+
+path {
+	stroke: steelblue;
+	stroke-width: 2;
+	fill: none;
+}
+
+.axis path,
+.axis line {
+	fill: none;
+	stroke: grey;
+	stroke-width: 1;
+	shape-rendering: crispEdges;
+}
+
+.graph-wide {
+  transform: scale(1.2,1);
+}
+
+.change-input {
+  display: none;
+  float: right;
+  margin-right: 13px;
+  margin-top: -28px;
+  height: 15px;
+  width: 15px;
+  background-color: #d0cfcb;
+  flex-direction: column;
+  float: right;
+}
+
+.change-input--visible {
+  display: flex;
+}
+
+.inc {
+  content: ' ';
+  margin-top: -3px;
+  margin-bottom: 2px;
+  border: 5px solid transparent;
+  border-bottom: 5px solid black;
+}
+
+.dec {
+  content: ' ';
+  border: 5px solid transparent;
+  border-top: 5px solid black;
 }
