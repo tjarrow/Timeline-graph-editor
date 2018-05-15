@@ -1,8 +1,8 @@
 
-var jsonData = localStorage.getItem("data");
-
+var jsonData;// = localStorage.getItem("data");
 var data = [];
-data = JSON.parse(jsonData);
+var returnData;
+//data = JSON.parse(jsonData);
 // var newData = JSON.parse(localStorage.newData);
  // var svg = localStorage.getItem("svg");
 
@@ -11,7 +11,7 @@ data = JSON.parse(jsonData);
 //     rightPanel = document.getElementById('panel-3'),
 //     mainPanel = document.getElementById('panel-2'),
 //     rightArrow = document.getElementById('arrow-right'),
-var  field = document.getElementById("field-main");
+var field = document.getElementById("field-main");
 
 $("#arrow-left").on("click",  function() {
   console.log("A");
@@ -54,7 +54,11 @@ $('input').keyup(function(e){
   dateString += time.getMinutes() +':';
   dateString += time.getSeconds() +':';
   dateString += time.getMilliseconds();
-  data.push({"date": dateString, "value" : valueNumber })
+  data.push({"date": dateString, "value" : valueNumber });
+
+
+
+
   removeButton.className = "remove-button";
   removeButton.setAttribute("data-index",data.length - 1);
   removeButton.innerHTML = "Remove";
@@ -120,10 +124,13 @@ function getData() {
   		newData[i]['value'] = data[i]['value'];
   		newData[i]['date'] = data[i]['date'];
   	}
+    //положим элементы массива в localStorage
+    jsonData = JSON.stringify(data);
+    localStorage.setItem("jsonData",jsonData);
+     returnData = JSON.parse(localStorage.getItem("jsonData"));
 
     Draw();
 
-    localStorage.setItem("data", JSON.stringify(data));
 
 }
 
@@ -138,12 +145,58 @@ var svg = d3.select(field)
 function Draw() {
 
   var	valueline = d3.svg.line()
+
   	.x(function(data) { return x(data.date); })
-  	.y(function(data) { console.log(data.value); return y(data.value); });
-  	svg.append("path")
-  		.attr("class", "line")
-  		.attr("d", valueline(newData));
+  	.y(function(data) { return y(data.value); });
+
+    svg.append("path")
+      .attr("class", "line")
+      .attr("d", valueline(newData));
+
+   svg.selectAll("dot")
+       .data(data)
+       .enter()
+       .append("circle")
+       .attr("r", 0)
+       .attr("cx", function(data) { return x(data.date); })
+       .attr("cy", function(data) { return y(data.value); });
+
+    svg.selectAll("dot")
+       .data(data)
+       .enter()
+       .append("text")
+       .attr("font-size","15px")
+       .attr("dx", function(data) { return x(data.date); })
+       .attr("dy", function(data) { return y(data.value); })
+       .text(function(data) { return data.value });
+
+    //var dots = svg.selectAll(".dots");
+
+    // //dots
+    // .append("text")
+    //   .attr("dx", 12)
+    //   .attr("dy", ".35em")
+    //   .text(function(data) { return data.value });
+
+    // var node = svg.select("path");
+    //
+    // node.append("circle")
+    //   .attr("class", "dot")
+    //   .attr("cx", function(data) { return x(data.date); })
+    //   .attr("cy", function(data) { return y(data.value); })
+    //
+    //   node.append("text")
+    // .attr("x", function(data) { return x(data.date); })
+    // .attr("y", function(data) { return y(data.value); })
+    // .text("fooLabelsOfScatterPoints");
+
+
+
     //  localStorage.setItem("svg", JSON.stringify(svg));
+
+
+
+
 
 }
 
