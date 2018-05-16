@@ -1,18 +1,34 @@
 
-var jsonData;
 var data = [];
-var returnData;
-
+var clickCountLeft = 0;
+var clickCountRight = 0;
 
 $("#arrow-left").on("click",  function() {
+
+  clickCountLeft++;
 
   $("#panel-1").toggleClass('side-panel__hidden');
   $("#arrow-left").toggleClass('arrow-left__hidden');
   $("#panel-2").toggleClass("main-pannel__to-side");
   $('#panel-2').toggleClass("shadow-right");
   $('#field-main').toggleClass("field-main__to-side");
-  $("path").toggleClass("graph-wide");
-  $("svg").attr("width","900");
+
+  if (clickCountLeft % 2 == 0) {
+    Clear();
+    $("svg").attr("width","700");
+    Draw();
+  } else {
+    Clear();
+    $("svg").attr("width","900");
+    drawWide();
+  }
+
+  if ((clickCountLeft % 2 != 0) && (clickCountRight % 2 != 0) && (clickCountRight > 0) && (("#panel-2:has(main-pannel__wide)")) ) {
+    Clear();
+    $("svg").attr("width","1100");
+    drawFull();
+  }
+
   if ($('#panel-3').hasClass("side-panel__hidden")) {
 
     $('#panel-2').toggleClass("main-pannel__wide");
@@ -22,28 +38,42 @@ $("#arrow-left").on("click",  function() {
 
   }
 
-  if ("#field-main:has(svg)") {
-    Clear();
-    drawWide();
-    $("#field-main").toggleClass("wide-graph");
-  }
+   if ($("#panel-2:has(main-pannel__wide)")) {
 
- //  if ("#field-main:has(.wide-graph)") {
- //   Clear();
- //   Draw();
- // }
+     $('#panel-2').removeClass("main-pannel__wide");
+     $('#panel-2').addClass("main-pannel__to-side");
+     $("#field-main").removeClass("field-main__wide");
+     $("#field-main").addClass("field-main__to-side");
+
+   }
 
 })
 
 $("#arrow-right").on("click",  function() {
+
+  clickCountRight++;
 
   $("#panel-3").toggleClass('side-panel__hidden');
   $("#arrow-right").toggleClass('arrow-right__hidden');
   $("#panel-2").toggleClass("main-pannel__to-side");
   $('#panel-2').toggleClass("shadow-left");
   $('#field-main').toggleClass("field-main__to-side");
-  $("path").toggleClass("graph-wide");
-  $("svg").attr("width","900");
+
+  if (clickCountRight % 2 == 0) {
+    Clear();
+    $("svg").attr("width","700");
+    Draw();
+  } else {
+    Clear();
+    $("svg").attr("width","900");
+    drawWide();
+  }
+
+  if ((clickCountLeft % 2 != 0) && (clickCountRight % 2 != 0) && (clickCountLeft > 0) && (("#panel-2:has(main-pannel__wide)")) ) {
+    Clear();
+    $("svg").attr("width","1100");
+    drawFull();
+  }
 
   if ($('#panel-1').hasClass("side-panel__hidden")) {
 
@@ -55,7 +85,6 @@ $("#arrow-right").on("click",  function() {
   }
 
 })
-
 
 var input = document.getElementById('input');
 var values = document.querySelector('.values-field');
@@ -144,10 +173,6 @@ function getData() {
   		newData[i]['value'] = data[i]['value'];
   		newData[i]['date'] = data[i]['date'];
   	}
-    //положим элементы массива в localStorage
-    jsonData = JSON.stringify(data);
-    localStorage.setItem("jsonData",jsonData);
-     returnData = JSON.parse(localStorage.getItem("jsonData"));
 
     Draw();
 
@@ -191,7 +216,6 @@ function Draw() {
     .attr("dx", function(data) { return x(data.date); })
     .attr("dy", function(data) { return y(data.value); })
     .text(function(data) { return data.value });
-    //  localStorage.setItem("svg", JSON.stringify(svg));
 }
 
 function drawWide() {
@@ -225,12 +249,35 @@ function drawWide() {
 }
 
 function drawFull() {
+  var	valueline = d3.svg.line()
 
+  .x(function(data) { return x(data.date)*2; })
+  .y(function(data) { return y(data.value); });
+
+  svg.append("path")
+    .attr("class", "line")
+    .attr("d", valueline(newData));
+
+  svg.selectAll("dot")
+    .data(data)
+    .enter()
+    .append("circle")
+    .attr("class","dots")
+    .attr("r", 0)
+    .attr("cx", function(data) { return x(data.date)*2; })
+    .attr("cy", function(data) { return y(data.value); });
+
+  svg.selectAll("dot")
+    .data(data)
+    .enter()
+    .append("text")
+    .attr("font-size","15px")
+    .attr("class","dots-value")
+    .attr("dx", function(data) { return x(data.date)*2; })
+    .attr("dy", function(data) { return y(data.value); })
+    .text(function(data) { return data.value });
 }
 
 function Clear() {
   d3.selectAll("g > *").remove();
 }
-
-//localStorage.setItem("data", JSON.stringify(data));
-// localStorage.newData = JSON.stringify(newData);
