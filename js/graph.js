@@ -38,15 +38,6 @@ $("#arrow-left").on("click",  function() {
 
   }
 
-   if ($("#panel-2:has(main-pannel__wide)")) {
-
-     $('#panel-2').removeClass("main-pannel__wide");
-     $('#panel-2').addClass("main-pannel__to-side");
-     $("#field-main").removeClass("field-main__wide");
-     $("#field-main").addClass("field-main__to-side");
-
-   }
-
 })
 
 $("#arrow-right").on("click",  function() {
