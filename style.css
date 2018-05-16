@@ -81,21 +81,8 @@ input {
   transition: right 1s;
 }
 
-
-/*
-.animation-hide {
-  animation-name: hide-panel;
-  animation-duration: 0.5s;
-}
-
-.animation-show {
-  animation-name: show-panel;
-  animation-duration: 0.5s;
-} */
-
 .arrow-left__hidden {
   left: 0px !important;
-  /* margin-top: 23% !important; */
   border-left: 40px solid #577d9f !important;
   border-right: 0px !important;
 }
